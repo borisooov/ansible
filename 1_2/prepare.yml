@@ -1,0 +1,6 @@
+---
+- name: Prepare user
+  hosts: all
+  become: true
+  roles:
+    - { role: os_prepare, tags: [prepare] }
