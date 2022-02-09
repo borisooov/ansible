@@ -1,0 +1,30 @@
+---
+- name: Create user and group
+  block:
+     - name: Create group
+       group:
+          name: "{{ user.group }}"
+     - name: Create user
+       user:
+          name: "{{ user.login }}"
+          password: "{{ user.password | password_hash('sha512') }}"
+          shell: /bin/bash
+          group: "{{ user.group }}"
+  rescue:   
+       - name: Rollback changes if need
+          command: date
+- name: Install packages
+  package:
+     - name:
+         - net-tools
+         - vim
+         - htop
+         - tcpdump
+         - unzip
+         - telnet
+        state: latest
+- name: Install nginx
+  package:
+     - name:
+         - nginx
+       state: latest
