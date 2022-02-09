@@ -2,4 +2,4 @@
 ansible-playbook -vv \
 	-i inventories/dev/dev.ini \
 	-k -K \
-	prepare.yml "$@"
+	1_2.yml "$@"

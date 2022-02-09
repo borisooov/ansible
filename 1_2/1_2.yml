@@ -1,0 +1,41 @@
+---
+- name: create user
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: add user & group
+      ansible.builtin.user:
+        name: test
+        password: $6$TlyRUSS9$GIO.2JrYL0HLmNAi/up.Hs2EpAsOdWQmCpi/6y5s2ISY2JGaeI70jjXXIdPnmES9EgjXH9T9o4uBOO90Md4oM/
+        group: sudo
+        state: present
+        shell: /bin/bash
+        system: yes
+        home: /home/test
+
+
+- name: add packages
+  hosts: all
+  become: yes
+
+  tasks:
+      - name: Install the lastest version of vim, htop, unzip
+        ansible.builtin.package:
+           name:
+             - vim
+             - htop
+             - unzip
+             - telnet
+           state: latest
+
+
+- name: Download random test file
+  hosts: all
+  become: yes
+
+  tasks:
+      - name: Download file to home directory 
+        get_url:
+          url: "https://github.com/prokls/cnf-files-download/blob/master/problematic_files.txt"
+          dest: /home/tech/file.txt
