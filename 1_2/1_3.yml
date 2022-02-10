@@ -1,0 +1,10 @@
+---
+- name: Install MySQL
+  hosts: test-vm's
+  become: yes
+
+  tasks:
+     - name: install mysql
+       apt:
+           name: mysql-server
+           state: latest
