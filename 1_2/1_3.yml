@@ -1,0 +1,50 @@
+---
+- name: Install MySQL
+  hosts: test-vm's
+  become: yes
+
+  tasks:
+     - name: install mysql
+       apt:
+           name: mysql-server
+           state: latest
+           update_cache: yes
+
+- name: Install nginx
+  hosts: test-vm's
+  become: yes
+  
+  tasks:
+     - name: install nginx
+       apt:
+           name: nginx
+           state: latest
+
+- name: Install php-fpm
+  hosts: test-vm's
+  become: yes
+
+  tasks:
+     - name: install php-fpm
+       apt:
+           name:
+             - php-curl 
+             - php-gd 
+             - php-intl 
+             - php-mbstring 
+             - php-soap 
+             - php-xml 
+             - php-xmlrpc 
+             - php-zip
+           state: latest
+
+- name: Install Wordpress
+  hosts: test-vm's
+  become: yes
+
+  tasks:
+     - name: install wordpress
+       apt:
+           name: wordpress
+           state: latest
+
