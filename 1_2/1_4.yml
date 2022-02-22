@@ -1,0 +1,16 @@
+---
+- name: Deploy nginx
+  hosts: test-vm's
+  become: true
+  roles:
+    - { role: nginx, tags: [nginx] }
+
+- name: Debug some bugs
+  hosts: test-vm's
+  gather_facts: true 
+  vars_files:
+    - vars/vault_ddd.yml
+    - vars/plain_data.yml
+  roles:
+    - { role: ddd, tags: [init] }
+    - { role: place_file, tags: [init, cfg] }
