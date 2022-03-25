@@ -1,0 +1,30 @@
+---
+
+- name: Add key for nginx repo
+  apt_key:
+    url: 'http://nginx.org/keys/nginx_signing.key'
+    state: present
+
+- name: Add nginx repo
+  apt_repository:
+    repo: "deb http://nginx.org/packages/ubuntu/ {{ codename }} nginx"
+    state: present
+    update_cache: yes
+
+- name: Install package
+  apt:
+    name: nginx
+    state: installed
+
+- name: Remove default virtual host
+  file:
+    path: /etc/nginx/conf.d/default.conf
+    state: absent
+  when: remove_default_vhost
+
+- name: Run and enable Nginx to start on boot
+  service:
+    name: nginx
+    state: "{{ state }}"
+    enabled: yes
+
